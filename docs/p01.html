@@ -10,8 +10,9 @@
 
 
 
+<meta name="date" content="2026-02-22" />
 
-<title>Portfolio 1</title>
+<title>PULSE Value Ranking Visualization</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -290,81 +291,52 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Portfolio 1</h1>
+<h1 class="title toc-ignore">PULSE Value Ranking Visualization</h1>
+<h4 class="date">2026-02-22</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
-<pre class="r"><code>library(tidyverse) 
-library(tidyr)
-data(fish_encounters)</code></pre>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-eget nibh vel est aliquet iaculis at placerat sem. Aenean faucibus
-iaculis ultricies. Nullam consequat odio in ultricies ullamcorper. Etiam
-venenatis in est vitae ullamcorper. Nam vitae urna ut dolor rhoncus
-aliquet at vel neque. Quisque tristique leo finibus nisi interdum, sit
-amet tempor risus viverra. Donec mollis vulputate sodales. Nunc ornare,
-leo quis euismod eleifend, eros mi maximus felis, vel varius lacus dui
-eget nibh. Duis vitae nunc nisl. Donec accumsan aliquam elit, eu
-fringilla quam pulvinar eget.</p>
-<p>Mauris in ligula mauris. Curabitur facilisis pharetra metus eget
-lobortis. In egestas nibh sit amet faucibus eleifend. Suspendisse
-imperdiet viverra blandit. Phasellus consectetur tincidunt eros eu
-facilisis. Quisque maximus, orci eget sodales aliquam, velit lorem
-semper dolor, nec convallis erat ipsum mattis velit. Pellentesque
-porttitor, mauris vitae aliquam mattis, metus nisl viverra turpis, vel
-convallis metus sapien et ex. Nunc consequat ipsum id dolor eleifend,
-sit amet semper eros sodales. Pellentesque consectetur, dui quis
-venenatis malesuada, nunc lorem lacinia libero, vitae malesuada dui arcu
-in augue. Aliquam id sagittis libero. Vestibulum aliquet sagittis
-libero, non posuere odio molestie ut. Curabitur lacus enim, viverra vel
-odio non, pretium efficitur elit. Mauris posuere efficitur interdum.
-Nunc sed bibendum turpis, quis fringilla velit. Phasellus eu lorem
-lobortis eros molestie laoreet.</p>
-<pre class="r"><code># Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  labs(x = &quot;Species&quot;, y = &quot;Number of Fish Encounters&quot;)</code></pre>
-<p><img src="p01_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
-<p>Sed mollis purus faucibus leo finibus, ut pharetra nibh elementum.
-Nulla id orci lorem. Mauris sollicitudin mi eget tellus vehicula, ut
-convallis lorem mollis. In blandit nulla diam, a malesuada sem volutpat
-interdum. Ut elementum elit at velit maximus, ac tempor odio porttitor.
-Suspendisse lobortis sollicitudin tortor, ut pharetra libero luctus a.
-Sed hendrerit faucibus metus. Sed rutrum purus vel pellentesque
-euismod.</p>
-<pre class="r"><code># Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  labs(x = &quot;Species&quot;, y = &quot;Number of Fish Encounters&quot;)</code></pre>
-<p><img src="p01_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
-<p>Mauris placerat in velit a pharetra. Nulla viverra bibendum lectus,
-ut lobortis nibh. Aenean malesuada, orci vitae dictum placerat, enim
-justo aliquet leo, ac tincidunt augue ipsum et mi. Nullam in pharetra
-metus, nec molestie felis. Duis varius rhoncus pulvinar. Integer semper
-urna sed tellus rhoncus, vel suscipit odio iaculis. Mauris iaculis neque
-pellentesque ex convallis venenatis. Sed ultrices euismod fermentum. Ut
-feugiat risus at turpis tincidunt viverra.</p>
-<pre class="r"><code># Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  labs(x = &quot;Species&quot;, y = &quot;Number of Fish Encounters&quot;)</code></pre>
-<p><img src="p01_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
-<p>Donec sagittis suscipit orci in ultrices. Vivamus iaculis eleifend
-est et dictum. Fusce non urna at lacus dapibus tincidunt ac sed nibh.
-Donec luctus lectus elit, ac ultrices tortor mollis sit amet. Nulla
-finibus lacinia arcu. Proin sollicitudin non odio et pulvinar. Maecenas
-finibus faucibus finibus. Ut elementum metus velit, a sodales sapien
-commodo et. Vivamus pulvinar, sapien et porta cursus, elit est luctus
-nisi, eget fringilla odio diam et enim. Sed sodales suscipit bibendum.
-Morbi ut metus semper, laoreet felis sodales, consequat dolor.</p>
+<pre class="r"><code>library(haven)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.1     ✔ tibble    3.3.0
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.0     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>data&lt;-read.csv(&quot;/Users/tiffani/Downloads/Project PULSE - Study 1 (Tiffani)_December 18, 2025_09.18_clean.csv&quot;)
+data &lt;- data %&gt;% 
+  select(&quot;values_1&quot;, &quot;values_2&quot;, &quot;values_3&quot;, &quot;values_4&quot;, &quot;values_5&quot;, &quot;values_6&quot;, &quot;values_7&quot;, &quot;values_8&quot;, &quot;values_9&quot;, &quot;values_99&quot;)
+  data &lt;- data [-c(1,2),]</code></pre>
+<pre class="r"><code>names(data) &lt;- c(&quot;academic_performance&quot;, &quot;academic_growth&quot;, &quot;absenteeism&quot;, &quot;racial_diversity&quot;, &quot;special_programming&quot;, &quot;convenience&quot;, &quot;leadership&quot;, &quot;mission_statement&quot;, &quot;economic_diversity&quot;, &quot;other&quot;)
+library(tidyverse)
+values_long &lt;- data %&gt;%
+  pivot_longer(
+    cols = everything(),
+    names_to = &quot;value&quot;,
+    values_to = &quot;rank&quot;
+  )
+values_long &lt;- values_long %&gt;%
+  mutate(rank = as.numeric(rank)) %&gt;%
+  filter(rank &gt;= 1 &amp; rank &lt;= 10)</code></pre>
+<pre class="r"><code>ggplot(values_long,
+       aes(x = reorder(value, rank, FUN = mean),
+           y = rank)) +
+  geom_boxplot() +
+  coord_flip() +
+  scale_y_reverse(breaks = 1:10) +
+  labs(
+    x = &quot;Value&quot;,
+    y = &quot;Rank (1 = Most Important)&quot;,
+    title = &quot;Distribution of Value Rankings&quot;
+  ) +
+  theme_classic()</code></pre>
+<p><img src="p01_files/figure-html/create-plot-1.png" alt="" width="672" /></p>
 
 
 
