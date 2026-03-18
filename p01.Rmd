@@ -8,6 +8,7 @@ output: html_document
 date: "2026-02-22"
 ---
 
+The goal of this portfolio piece was to create a visualization to represent how parents rank 10 values with thinking about what they prioritize during the school choice process. 
 ```{r load-packages}
 library(haven)
 library(tidyverse)

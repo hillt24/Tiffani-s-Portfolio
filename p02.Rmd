@@ -1,5 +1,103 @@
 ---
-title: "Portfolio 2"
+title: "What Do Parents Prioritize When Choosing a School By Demographics"
+output: html_document
+date: "2026-03-18"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+```{r setup, include=FALSE}
+library(haven)
+library(tidyverse)
+values_data<-read.csv("/Users/tiffani/Downloads/Project PULSE - Study 1 (Tiffani)_December 18, 2025_09.18_clean.csv")
+values_data <- values_data %>% 
+  select("values_1", "values_2", "values_3", "values_4", "values_5", "values_6", "values_7", "values_8", "values_9", "values_99", "parent_race_1", "parent_race_2", "parent_race_3", "parent_race_4", "parent_race_5")
+  values_data <- values_data [-c(1,2),]
+```
+
+```{r converting-race, include=FALSE}
+values_data <- values_data %>%
+  pivot_longer(
+    cols = starts_with("parent_race_"),
+    names_to = "race",
+    names_prefix = "parent_race_"
+  )
+```
+
+```{r convert-data-long,include=FALSE}
+names(values_data) <- c("academic_performance", "academic_growth", "absenteeism", "racial_diversity", "special_programming", "convenience", "leadership", "mission_statement", "economic_diversity", "other", "Race", "mystery") # figure out what mystery is
+```
+
+```{r label-race, include=FALSE}
+
+values_data$race <- factor(values_data$Race)
+  
+new_labels <- c("1" = "White", "2" = "Black", "3" = "Hispanic", "4" = "Multiracial", "5" = "Other")
+
+values_data <- values_data %>% mutate(racial_diversity = as.numeric(racial_diversity))
+
+values_data <- values_data %>% mutate(economic_diversity = as.numeric(economic_diversity))
+
+values_data <- values_data %>% mutate(academic_performance = as.numeric(academic_performance))
+
+values_data <- values_data %>% mutate(academic_growth = as.numeric(academic_growth))
+
+```
+
+
+Across race, parents think racial diversity is important when choosing a school for their child. Most parents rank racial diversity in at least the top 10 of the values they prioritize when selecting a school. However, American public schools continue to be segregated. Specifically, white children are most likely to go to a racially segregated school. 
+```{r visualization, message=FALSE}
+ggplot(values_data,
+       aes(x =racial_diversity, colour = Race)) +
+  geom_dotplot() +
+  facet_wrap(~ Race, labeller = as_labeller(new_labels)) +
+  coord_flip() +
+  scale_x_reverse(breaks = 1:10) +
+  labs(
+    y = "Rank (1 = Most Important, 10 = Least Important)",
+    title = "Distribution of Value Rankings for Racial Diversity"
+  ) 
+```
+
+
+While most research focuses on racial diversity, economic segregation within schools is also a major issue. A part of this problem is the result of residential segregation. As shown in this graph, parents don't seem to prioritize economical segregation even though this is a big issue. 
+```{r economic-diversity, message=FALSE}
+ggplot(values_data,
+       aes(x = economic_diversity, colour = Race)) +
+  geom_dotplot( ) +
+  facet_wrap(~ Race, labeller = as_labeller(new_labels)) +
+  coord_flip() +
+  scale_x_reverse(breaks = 1:10) +
+  labs(
+    y = "Rank (1 = Most Important, 10 = Least Important)",
+    title = "Distribution of Value Rankings for Economic Diversity"
+  ) 
+```
+
+
+As one would assume, most parents rank academic performance as the number one priority when selecting a school for their child. However, metrics used to score academic perfomance are often strong correlates with race. Academic performance rates do not account for the school environment or social development of a child; It is mostly related to test scores. 
+```{r academic-performance, message=FALSE}
+ggplot(values_data,
+       aes(x =academic_performance, color = Race)) +
+  geom_dotplot() +
+  facet_wrap(~ Race, labeller = as_labeller(new_labels)) +
+  coord_flip() +
+  scale_x_reverse(breaks = 1:10) +
+  labs(
+    y = "Rank (1 = Most Important, 10 = Least Important)",
+    title = "Distribution of Value Rankings for Academic Performance"
+  ) 
+```
+
+
+There appears to be some hope, however. Parents report valuing the academic growth of a school.
+```{r academic-growth, message=FALSE}
+ggplot(values_data,
+       aes(x =academic_growth, colour=Race)) +
+  geom_dotplot() +
+  facet_wrap(~ Race, labeller = as_labeller(new_labels)) +
+  coord_flip() +
+  scale_x_reverse(breaks = 1:10) +
+  labs(
+    y = "Rank (1 = Most Important, 10 = Least Important)",
+    title = "Distribution of Value Rankings for Academic Growth"
+  ) 
+```
