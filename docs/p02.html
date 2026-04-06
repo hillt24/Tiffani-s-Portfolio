@@ -303,71 +303,24 @@ choosing a school for their child. Most parents rank racial diversity in
 at least the top 10 of the values they prioritize when selecting a
 school. However, American public schools continue to be segregated.
 Specifically, white children are most likely to go to a racially
-segregated school.</p>
-<pre class="r"><code>ggplot(values_data,
-       aes(x =racial_diversity, colour = Race)) +
-  geom_dotplot() +
-  facet_wrap(~ Race, labeller = as_labeller(new_labels)) +
-  coord_flip() +
-  scale_x_reverse(breaks = 1:10) +
-  labs(
-    y = &quot;Rank (1 = Most Important, 10 = Least Important)&quot;,
-    title = &quot;Distribution of Value Rankings for Racial Diversity&quot;
-  ) </code></pre>
-<pre><code>## Warning: Removed 95 rows containing missing values or values outside the scale range
-## (`stat_bindot()`).</code></pre>
-<p><img src="p02_files/figure-html/visualization-1.png" alt="" width="672" /></p>
+segregated school.
+<img src="p02_files/figure-html/visualization-1.png" alt="" width="672" /></p>
 <p>While most research focuses on racial diversity, economic segregation
 within schools is also a major issue. A part of this problem is the
 result of residential segregation. As shown in this graph, parents don’t
 seem to prioritize economical segregation even though this is a big
-issue.</p>
-<pre class="r"><code>ggplot(values_data,
-       aes(x = economic_diversity, colour = Race)) +
-  geom_dotplot( ) +
-  facet_wrap(~ Race, labeller = as_labeller(new_labels)) +
-  coord_flip() +
-  scale_x_reverse(breaks = 1:10) +
-  labs(
-    y = &quot;Rank (1 = Most Important, 10 = Least Important)&quot;,
-    title = &quot;Distribution of Value Rankings for Economic Diversity&quot;
-  ) </code></pre>
-<pre><code>## Warning: Removed 135 rows containing missing values or values outside the scale range
-## (`stat_bindot()`).</code></pre>
-<p><img src="p02_files/figure-html/economic-diversity-1.png" alt="" width="672" /></p>
+issue.
+<img src="p02_files/figure-html/economic-diversity-1.png" alt="" width="672" /></p>
 <p>As one would assume, most parents rank academic performance as the
 number one priority when selecting a school for their child. However,
 metrics used to score academic perfomance are often strong correlates
 with race. Academic performance rates do not account for the school
 environment or social development of a child; It is mostly related to
-test scores.</p>
-<pre class="r"><code>ggplot(values_data,
-       aes(x =academic_performance, color = Race)) +
-  geom_dotplot() +
-  facet_wrap(~ Race, labeller = as_labeller(new_labels)) +
-  coord_flip() +
-  scale_x_reverse(breaks = 1:10) +
-  labs(
-    y = &quot;Rank (1 = Most Important, 10 = Least Important)&quot;,
-    title = &quot;Distribution of Value Rankings for Academic Performance&quot;
-  ) </code></pre>
-<pre><code>## Warning: Removed 105 rows containing missing values or values outside the scale range
-## (`stat_bindot()`).</code></pre>
-<p><img src="p02_files/figure-html/academic-performance-1.png" alt="" width="672" /></p>
-<p>There appears to be some hope, however. Parents report valuing the
-academic growth of a school.</p>
-<pre class="r"><code>ggplot(values_data,
-       aes(x =academic_growth, colour=Race)) +
-  geom_dotplot() +
-  facet_wrap(~ Race, labeller = as_labeller(new_labels)) +
-  coord_flip() +
-  scale_x_reverse(breaks = 1:10) +
-  labs(
-    y = &quot;Rank (1 = Most Important, 10 = Least Important)&quot;,
-    title = &quot;Distribution of Value Rankings for Academic Growth&quot;
-  ) </code></pre>
-<pre><code>## Warning: Removed 105 rows containing missing values or values outside the scale range
-## (`stat_bindot()`).</code></pre>
+test scores.
+<img src="p02_files/figure-html/academic-performance-1.png" alt="" width="672" /></p>
+<p>Surprisingly, parents value academic growth. This could be a pathway
+for diverse schools to show how they can help students progress
+academically.</p>
 <p><img src="p02_files/figure-html/academic-growth-1.png" alt="" width="672" /></p>
 
 

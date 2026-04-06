@@ -44,7 +44,7 @@ values_data <- values_data %>% mutate(academic_growth = as.numeric(academic_grow
 
 
 Across race, parents think racial diversity is important when choosing a school for their child. Most parents rank racial diversity in at least the top 10 of the values they prioritize when selecting a school. However, American public schools continue to be segregated. Specifically, white children are most likely to go to a racially segregated school. 
-```{r visualization, message=FALSE}
+```{r visualization, message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(values_data,
        aes(x =racial_diversity, colour = Race)) +
   geom_dotplot() +
@@ -59,7 +59,7 @@ ggplot(values_data,
 
 
 While most research focuses on racial diversity, economic segregation within schools is also a major issue. A part of this problem is the result of residential segregation. As shown in this graph, parents don't seem to prioritize economical segregation even though this is a big issue. 
-```{r economic-diversity, message=FALSE}
+```{r economic-diversity, message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(values_data,
        aes(x = economic_diversity, colour = Race)) +
   geom_dotplot( ) +
@@ -74,7 +74,7 @@ ggplot(values_data,
 
 
 As one would assume, most parents rank academic performance as the number one priority when selecting a school for their child. However, metrics used to score academic perfomance are often strong correlates with race. Academic performance rates do not account for the school environment or social development of a child; It is mostly related to test scores. 
-```{r academic-performance, message=FALSE}
+```{r academic-performance, message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(values_data,
        aes(x =academic_performance, color = Race)) +
   geom_dotplot() +
@@ -88,8 +88,10 @@ ggplot(values_data,
 ```
 
 
-There appears to be some hope, however. Parents report valuing the academic growth of a school.
-```{r academic-growth, message=FALSE}
+Surprisingly, parents value academic growth. This could be a pathway for diverse schools to show how they can help students progress academically. 
+
+
+```{r academic-growth, message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(values_data,
        aes(x =academic_growth, colour=Race)) +
   geom_dotplot() +

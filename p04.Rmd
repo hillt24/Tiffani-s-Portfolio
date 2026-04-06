@@ -1,5 +1,111 @@
 ---
-title: "Portfolio 4"
+title: "Portfolio 4 Draft"
+output: html_document
+date: "2026-03-30"
 ---
+Goal: The goal of this portfolio piece was to use an open source dataset, specifically the NC Public School Data Set, the create visualizations that represent the deomgraphics of two school districts, one very small district and one mid-size district. 
+```{r setup, echo=FALSE, message=FALSE}
+library(haven)
+library(readxl)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+ncschooldata <- read_csv("/Users/tiffani/Downloads/crdc2015-16-nc-oct-2018.csv")
+```
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+```{r filter-data, echo=FALSE}
+pitt_schools <- ncschooldata %>% 
+ filter(LEA_NAME == "PITT COUNTY SCHOOLS") 
+
+clay_schools <- ncschooldata %>% 
+  filter(LEA_NAME == "CLAY COUNTY SCHOOLS")
+```
+
+These plots show male enrollment by female enrollment. I don't think these plots are very helpful, BUT this dataset was very large and wonky so I spent a lot of time trying to figure out to make a reasonable visualization. However, we do see that there appears to be a pretty linear relationship between male and female students. 
+
+```{r plot female-male-enrollment, echo=FALSE,  fig.height=4, fig.width=8}
+pitt_schools %>% 
+  ggplot(aes(x = TOT_ENR_M, y = TOT_ENR_F, color = SCH_NAME)) +
+  geom_point() +
+  labs(title = "The Relationship Between Male and Female Enrollment",
+       subtitle = "Pitt County Schools",
+       x = "Male Enrollment" ,
+       y = "Female Enrollment",
+       color = "School Name") +
+  theme(legend.title = element_text(size = 7),
+        legend.text  = element_text(size = 5),
+         plot.title =element_text(size = 10))
+```
+
+```{r plot female-male-enrollment-clay, echo=FALSE, fig.height=4, fig.width=8}
+
+clay_schools %>% 
+  ggplot(aes(x = TOT_ENR_M, y = TOT_ENR_F, color = SCH_NAME)) +
+  geom_point() +
+  labs(title = "The Relationship Between Male and Female Enrollment",
+       subtitle = "Clay County Schools",
+       x = "Male Enrollment",
+       y = "Female Enrollment",
+       
+       
+       
+       color = "School Name")
+ 
+```
+
+
+```{r plot-black-male-by-white-male-AP, echo=FALSE, fig.height=4, fig.width=8}
+clay_schools %>% 
+  ggplot(aes(x = SCH_APENR_BL_M, y = SCH_APENR_WH_M, color = SCH_NAME)) +
+  geom_point() +
+  labs(title = "The Relationship Between Black Male Students & White Male Students in AP",
+       subtitle = "Clay County Schools",
+       x = "Black Male Students",
+       y = "White Male Students",
+       
+       
+       
+       color = "School Name")
+```
+```{r plot-black-male-by-white-male-pitt-AP, echo=FALSE, fig.height=4, fig.width=8}
+
+pitt_schools %>% 
+  ggplot(aes(x = SCH_APENR_BL_M, y = SCH_APENR_WH_M, color = SCH_NAME)) +
+  geom_point() +
+  labs(title = "The Relationship Between Black Male Students & White Male Students in AP",
+       subtitle = "Pitt County Schools",
+       x = "Black Male Students",
+       y = "White Male Students",
+       color = "School Name") +
+  theme(legend.title = element_text(size = 7),
+        legend.text  = element_text(size = 5),
+         plot.title =element_text(size = 10))
+```
+
+```{r plot-black-male-by-white-male, echo=FALSE, fig.height=4, fig.width=8}
+clay_schools %>% 
+  ggplot(aes(x = SCH_ENR_BL_M, y = SCH_ENR_WH_M, color = SCH_NAME )) +
+  geom_point() +
+  labs(title = "The Relationship Between Black Male Students & White Male Students",
+       subtitle = "Clay County Schools",
+       x = "Black Male Students", 
+       y = "White Male Students",
+       
+       
+       color = "School Name")
+```
+
+```{r plot-black-male-by-white-male-pitt, echo=FALSE, fig.height=4, fig.width=8}
+pitt_schools %>% 
+  ggplot(aes(x = SCH_ENR_BL_M, y = SCH_ENR_WH_M, color = SCH_NAME )) +
+  geom_point() +
+   labs(title = "The Relationship Between Black Male Students & White Male Students",
+       subtitle = "Pitt County Schools",
+       x = "Black Male Students", 
+       y = "White Male Students",
+        color = "School Name") +
+theme(legend.title = element_text(size = 7),
+        legend.text  = element_text(size = 5),
+      plot.title =element_text(size = 10))
+
+```
