@@ -2,4 +2,45 @@
 title: "Portfolio 5"
 ---
 
+### Goal
+The goal of this portfolio piece was to create a figure for my thesis that displayed the effect on my intervention on how much parents prioritized a diverse school. 
+
+```{r load-packages, echo=FALSE, message=FALSE}
+library(readr)
+library(dplyr)
+library(stats)
+library(psych)
+library(tidyr)
+library(haven)
+library(ggplot2)
+```
+```{r import-data, echo=FALSE, message=FALSE, warning=FALSE}
+pulse_data <- read_sav("/Users/tiffani/Downloads/PULSE_combined.sav")
+```
+```{r summarize-data, echo=FALSE, message=FALSE}
+summary_pulse <- pulse_data %>% 
+  group_by(condition) %>% 
+  summarise(
+    mean = mean(diverse_choice_sum, na.rm = TRUE),
+    sd = sd(diverse_choice_sum, na.rm = TRUE),
+    n = n(),
+    se = sd/sqrt(n)
+  )
+```
+Parents who were presented with a values-alignment intervention focusing on positioning diversity as a means to fufill academic achievement chose a diverse school more often than parents in the control condition. Initally, parents in both condition claimed to value diversity in their children's education. 
+
+
+
+```{r plot-data, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(summary_pulse, aes(x = condition, y = mean)) +
+  geom_col(fill = "pink", width = 0.5) +
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = 0.2) +
+  labs(x = "Condition", y = "Mean Diverse Choices", title = "Prioritizing Diverse Schools") +
+
+   scale_x_discrete(labels= c(
+    diversity = "Intervention",
+    p_involvement = "Control"
+  ))
+  theme_minimal()
+```
 > The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
