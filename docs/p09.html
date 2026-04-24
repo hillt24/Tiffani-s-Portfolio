@@ -295,13 +295,69 @@ $(document).ready(function () {
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
+<p>Goal: My thesis committee suggested that I parse out value rankings
+from White parents. The goal of this portfolio piece is to successfully
+do that.</p>
+<pre class="r"><code>library(psych)
+library(readr)
+library(ggplot2)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;ggplot2&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:psych&#39;:
+## 
+##     %+%, alpha</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(stats)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ lubridate 1.9.4     ✔ tibble    3.3.0
+## ✔ purrr     1.2.0     ✔ tidyr     1.3.2</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ ggplot2::%+%()   masks psych::%+%()
+## ✖ ggplot2::alpha() masks psych::alpha()
+## ✖ dplyr::filter()  masks stats::filter()
+## ✖ dplyr::lag()     masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>pulse &lt;- read.csv(&quot;/Users/tiffani/Downloads/Project PULSE - Study 1 (Tiffani)_December 18, 2025_09.18_clean.csv&quot;)</code></pre>
+<pre class="r"><code>pulse &lt;- pulse %&gt;% 
+  select(&quot;values_1&quot;, &quot;values_2&quot;, &quot;values_3&quot;, &quot;values_4&quot;, &quot;values_5&quot;, &quot;values_6&quot;, &quot;values_7&quot;, &quot;values_8&quot;, &quot;values_9&quot;, &quot;values_99&quot;, &quot;parent_race_1&quot;)
+pulse &lt;- pulse [-c(1,2),]
+
+names(pulse) &lt;- c(&quot;academic_performance&quot;, &quot;academic_growth&quot;, &quot;absenteeism&quot;, &quot;racial_diversity&quot;, &quot;special_programming&quot;, &quot;convenience&quot;, &quot;leadership&quot;, &quot;mission_statement&quot;, &quot;economic_diversity&quot;, &quot;other&quot;, &quot;Race&quot;)</code></pre>
+<pre class="r"><code>pulse_long &lt;- pulse %&gt;%
+  pivot_longer(
+    cols = -&quot;Race&quot;,
+    names_to = &quot;value&quot;,
+    values_to = &quot;rank&quot;
+  )
+pulse_long &lt;- pulse_long %&gt;%
+  mutate(rank = as.numeric(rank)) %&gt;%
+  filter(rank &gt;= 1 &amp; rank &lt;= 10)</code></pre>
+<p>Academic Performance, special programming, and Racial Diversity were
+ranked the highest among Black parents.</p>
+<pre class="r"><code>pulse_long %&gt;% 
+  filter(Race == &quot;1&quot;) %&gt;% 
+ggplot(aes(x = reorder(value, rank, FUN = mean),
+           y = rank)) +
+  geom_boxplot() +
+  coord_flip() +
+  scale_y_reverse(breaks = 1:10) +
+  labs(
+    x = &quot;Value&quot;,
+    y = &quot;Rank (1 = Most Important)&quot;,
+    title = &quot;Distribution of Value Rankings&quot;
+  ) +
+  theme_classic()</code></pre>
+<p><img src="p09_files/figure-html/plot-data-1.png" alt="" width="672" /></p>
 
 
 

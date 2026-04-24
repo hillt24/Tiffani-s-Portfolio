@@ -35,12 +35,11 @@ Parents who were presented with a values-alignment intervention focusing on posi
 ggplot(summary_pulse, aes(x = condition, y = mean)) +
   geom_col(fill = "pink", width = 0.5) +
   geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = 0.2) +
-  labs(x = "Condition", y = "Mean Diverse Choices", title = "Prioritizing Diverse Schools") +
+  labs(x = "Condition", y = "Mean Diverse Choices") +
 
    scale_x_discrete(labels= c(
     diversity = "Intervention",
     p_involvement = "Control"
-  ))
+  )) +
   theme_minimal()
 ```
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.

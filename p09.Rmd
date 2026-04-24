@@ -1,5 +1,50 @@
 ---
 title: "Portfolio 9"
 ---
+Goal: My thesis committee suggested that I parse out value rankings from White parents. The goal of this portfolio piece is to successfully do that.
+```{r load-packages}
+library(psych)
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(stats)
+library(tidyverse)
+```
+```{r load-data}
+pulse <- read.csv("/Users/tiffani/Downloads/Project PULSE - Study 1 (Tiffani)_December 18, 2025_09.18_clean.csv")
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+```
+```{r ranking-data}
+pulse <- pulse %>% 
+  select("values_1", "values_2", "values_3", "values_4", "values_5", "values_6", "values_7", "values_8", "values_9", "values_99", "parent_race_1")
+pulse <- pulse [-c(1,2),]
+
+names(pulse) <- c("academic_performance", "academic_growth", "absenteeism", "racial_diversity", "special_programming", "convenience", "leadership", "mission_statement", "economic_diversity", "other", "Race")
+```
+```{r clean-data}
+pulse_long <- pulse %>%
+  pivot_longer(
+    cols = -"Race",
+    names_to = "value",
+    values_to = "rank"
+  )
+pulse_long <- pulse_long %>%
+  mutate(rank = as.numeric(rank)) %>%
+  filter(rank >= 1 & rank <= 10)
+```
+Academic Performance, special programming, and Racial Diversity were ranked the highest among Black parents.
+```{r plot-data}
+pulse_long %>% 
+  filter(Race == "1") %>% 
+ggplot(aes(x = reorder(value, rank, FUN = mean),
+           y = rank)) +
+  geom_boxplot() +
+  coord_flip() +
+  scale_y_reverse(breaks = 1:10) +
+  labs(
+    x = "Value",
+    y = "Rank (1 = Most Important)",
+    title = "Distribution of Value Rankings"
+  ) +
+  theme_classic()
+```

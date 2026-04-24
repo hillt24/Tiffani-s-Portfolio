@@ -1,5 +1,40 @@
 ---
 title: "Portfolio 8"
 ---
+Goal: The goal of this portfolio was to create a figures visualizing the correlations between two dependent measures used in my thesis. The two variables I choose were "prioritization of diverse schools" and "diverse-school enrollment efficacy". 
+```{r load-packages, message =FALSE, echo = FALSE}
+library(readr)
+library(dplyr)
+library(stats)
+library(psych)
+library(tidyr)
+library(haven)
+library(lavaan)
+library(ggplot2)
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+pulse_data <- read_sav("/Users/tiffani/Downloads/PULSE_combined.sav")
+```
+```{r plot, message=FALSE, echo=FALSE}
+ 
+ggplot(pulse_data, aes(x = diverse_choice_sum, y = confident_diversity_comp2))+
+  geom_point() +
+  labs(x = "Diverse-school Enrollment Efficacy", y = "Prioritization of Diverse Schools")
+```
+The variables are discrete, so I think this is overplotted. Here's how I fixed that issue:
+
+
+```{r plot-again, message=FALSE, echo=FALSE}
+
+ggplot(pulse_data, aes(x = diverse_choice_sum, y = confident_diversity_comp2)) +
+  geom_jitter(width = 0.2, height = 0.2) +
+  labs(x = "Diverse-school Enrollment Efficacy", y = "Prioritization of Diverse Schools")
+
+```
+
+I'm not sure if I would call this the "perfect figure", but it is a lot more interpretable than the first one. We can see that priortization of diverse schools and diverse school enrollment efficacy was corrrelated.
+```{r plot-again2, message=FALSE, echo=FALSE}
+ggplot(pulse_data, aes(x = diverse_choice_sum, y = confident_diversity_comp2)) +
+  geom_jitter(width = 0.2, height = 0.2, alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Diverse-school Enrollment Efficacy", y = "Prioritization of Diverse Schools")
+```

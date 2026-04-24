@@ -2,4 +2,81 @@
 title: "Portfolio 6"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+Goal: The goal of this portfolio piece is to create visualizations for the secondary dependent measures of my thesis. My intervention was designed to reduce tension between diversity values and other school choice factors to desegregate schools. 
+
+```{r load-packages}
+library(readxl)
+library(haven)
+library(ggplot2)
+library(psych)
+library(dplyr)
+library(patchwork)
+
+pulse_data <- read_sav("/Users/tiffani/Downloads/PULSE_combined.sav")
+```
+
+```{r summarize-data-by-variable}
+summary_normative_beliefs <- pulse_data %>% 
+  group_by(condition) %>% 
+  summarise(
+    mean = mean(priority_racdiverse, na.rm = TRUE),
+    sd = sd(priority_racdiverse, na.rm = TRUE),
+    n = n(),
+    se = sd/sqrt(n)
+  )
+
+summary_perc_value <- pulse_data %>% 
+  group_by(condition) %>% 
+  summarise(
+    mean = mean(value_comp6, na.rm = TRUE),
+    sd = sd(value_comp6, na.rm = TRUE),
+    n = n(),
+    se = sd/sqrt(n)
+  )
+summary_self_efficacy <- pulse_data %>% 
+  group_by(condition) %>% 
+  summarise(
+    mean = mean(confident_diversity_comp2, na.rm = TRUE),
+    sd = sd(confident_diversity_comp2, na.rm = TRUE),
+    n = n(),
+    se = sd/sqrt(n)
+  )
+```
+
+```{r creating-plots-for-each-variable}
+p1 <- ggplot(summary_normative_beliefs, aes(x = condition, y = mean)) +
+  geom_col(fill = "pink", width = 0.5) +
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = 0.2) +
+labs(x = "Normative Beliefs") +
+   scale_x_discrete(labels= c(
+    diversity = "Intervention",
+    p_involvement = "Control"
+  )) +
+  theme_minimal()
+
+p2 <- ggplot(summary_perc_value, aes(x = condition, y = mean)) +
+  geom_col(fill = "pink", width = 0.5) +
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = 0.2) +
+  labs(x = "Perceived Value of Diverse Schools") +
+
+  scale_x_discrete(labels= c(
+    diversity = "Intervention",
+    p_involvement = "Control"
+  )) +
+  theme_minimal()
+
+p3 <- ggplot(summary_self_efficacy, aes(x = condition, y = mean)) +
+  geom_col(fill = "pink", width = 0.5) +
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = 0.2) +
+  labs(x = "Normative Beliefs") +
+   scale_x_discrete(labels= c(
+    diversity = "Intervention",
+    p_involvement = "Control"
+  )) +
+  theme_minimal()
+```
+
+```{r positioning}
+p1 + p2 + p3
+
+```
