@@ -9,7 +9,7 @@ date: "2026-02-22"
 ---
 
 The goal of this portfolio piece was to create a visualization to represent how parents rank 10 values with thinking about what they prioritize during the school choice process. 
-```{r load-packages}
+```{r load-packages, message=FALSE, echo=FALSE}
 library(haven)
 library(tidyverse)
 data<-read.csv("/Users/tiffani/Downloads/Project PULSE - Study 1 (Tiffani)_December 18, 2025_09.18_clean.csv")
@@ -18,7 +18,7 @@ data <- data %>%
   data <- data [-c(1,2),]
 ```
 
-```{r covert-data-long}
+```{r covert-data-long, message=FALSE, echo=FALSE}
 names(data) <- c("academic_performance", "academic_growth", "absenteeism", "racial_diversity", "special_programming", "convenience", "leadership", "mission_statement", "economic_diversity", "other")
 library(tidyverse)
 values_long <- data %>%
@@ -32,7 +32,7 @@ values_long <- values_long %>%
   filter(rank >= 1 & rank <= 10)
 ```
 
-```{r create-plot}
+```{r create-plot, message=FALSE, echo=FALSE}
 ggplot(values_long,
        aes(x = reorder(value, rank, FUN = mean),
            y = rank)) +

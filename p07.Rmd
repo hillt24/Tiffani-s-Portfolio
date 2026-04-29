@@ -1,5 +1,65 @@
 ---
 title: "Portfolio 7"
 ---
+Goal: The goal of this portfolio piece was to create a figure for my thesis that illustrated an insignificant relationship between two variables. 
+```{r load-packages, echo=FALSE, message=FALSE}
+library(readr)
+library(dplyr)
+library(stats)
+library(psych)
+library(tidyr)
+library(haven)
+library(ggplot2)
+```
+```{r import-data, echo=FALSE, message=FALSE, warning=FALSE}
+pulse_data <- read_sav("/Users/tiffani/Downloads/PULSE_combined.sav")
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+pulse_data <- pulse_data %>%
+  mutate(
+    comp_intention = rowMeans(
+      select(., likely_2_6, likely_3_8),
+      na.rm = TRUE
+    )
+  )
+```
+```{r summarize-data, echo=FALSE, message=FALSE}
+summary_pulse <- pulse_data %>% 
+  group_by(condition) %>% 
+  summarise(
+    mean = mean(comp_intention, na.rm = TRUE),
+    sd = sd(comp_intention, na.rm = TRUE),
+    n = n(),
+    se = sd/sqrt(n)
+  )
+```
+
+This graphic does a pretty good job of actually depicting what is goig on with the data. I think there may be some room for improvement, but I also want to see how this looks with just points.
+
+
+```{r plot-data, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(summary_pulse, aes(x = condition, y = mean)) +
+  geom_col(fill = "pink", width = 0.5) +
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = 0.2) +
+  labs(x = "Condition", y = "Intention to Enroll") +
+
+   scale_x_discrete(labels= c(
+    diversity = "Intervention",
+    p_involvement = "Control"
+  )) +
+  theme_minimal()
+```
+
+I think this exacerbates the actual gap between the two conditions. There's wasn't much of a difference between the two, but this shows otherwise.
+
+```{r plot-data-2, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(summary_pulse, aes(x = condition, y = mean)) +
+  geom_point(fill = "pink", size = 3) +
+  geom_line() +
+  
+  labs(x = "Condition", y = "Intention to Enroll") +
+   scale_x_discrete(labels= c(
+    diversity = "Intervention",
+    p_involvement = "Control"
+  )) +
+  theme_minimal()
+```

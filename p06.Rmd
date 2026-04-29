@@ -4,7 +4,7 @@ title: "Portfolio 6"
 
 Goal: The goal of this portfolio piece is to create visualizations for the secondary dependent measures of my thesis. My intervention was designed to reduce tension between diversity values and other school choice factors to desegregate schools. 
 
-```{r load-packages}
+```{r load-packages, message=FALSE, echo=FALSE}
 library(readxl)
 library(haven)
 library(ggplot2)
@@ -15,7 +15,7 @@ library(patchwork)
 pulse_data <- read_sav("/Users/tiffani/Downloads/PULSE_combined.sav")
 ```
 
-```{r summarize-data-by-variable}
+```{r summarize-data-by-variable, message=FALSE, echo=FALSE}
 summary_normative_beliefs <- pulse_data %>% 
   group_by(condition) %>% 
   summarise(
@@ -43,7 +43,7 @@ summary_self_efficacy <- pulse_data %>%
   )
 ```
 
-```{r creating-plots-for-each-variable}
+```{r creating-plots-for-each-variable, message=FALSE, echo=FALSE}
 p1 <- ggplot(summary_normative_beliefs, aes(x = condition, y = mean)) +
   geom_col(fill = "pink", width = 0.5) +
   geom_errorbar(aes(ymin = mean - se, ymax = mean + se), width = 0.2) +
@@ -76,7 +76,7 @@ p3 <- ggplot(summary_self_efficacy, aes(x = condition, y = mean)) +
   theme_minimal()
 ```
 
-```{r positioning}
+```{r positioning, message=FALSE, echo=FALSE}
 p1 + p2 + p3
 
 ```

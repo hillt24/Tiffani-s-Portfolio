@@ -300,45 +300,6 @@ $(document).ready(function () {
 <p>The goal of this portfolio piece was to create a visualization to
 represent how parents rank 10 values with thinking about what they
 prioritize during the school choice process.</p>
-<pre class="r"><code>library(haven)
-library(tidyverse)</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.6
-## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-## ✔ ggplot2   4.0.1     ✔ tibble    3.3.0
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-## ✔ purrr     1.2.0     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code>data&lt;-read.csv(&quot;/Users/tiffani/Downloads/Project PULSE - Study 1 (Tiffani)_December 18, 2025_09.18_clean.csv&quot;)
-data &lt;- data %&gt;% 
-  select(&quot;values_1&quot;, &quot;values_2&quot;, &quot;values_3&quot;, &quot;values_4&quot;, &quot;values_5&quot;, &quot;values_6&quot;, &quot;values_7&quot;, &quot;values_8&quot;, &quot;values_9&quot;, &quot;values_99&quot;)
-  data &lt;- data [-c(1,2),]</code></pre>
-<pre class="r"><code>names(data) &lt;- c(&quot;academic_performance&quot;, &quot;academic_growth&quot;, &quot;absenteeism&quot;, &quot;racial_diversity&quot;, &quot;special_programming&quot;, &quot;convenience&quot;, &quot;leadership&quot;, &quot;mission_statement&quot;, &quot;economic_diversity&quot;, &quot;other&quot;)
-library(tidyverse)
-values_long &lt;- data %&gt;%
-  pivot_longer(
-    cols = everything(),
-    names_to = &quot;value&quot;,
-    values_to = &quot;rank&quot;
-  )
-values_long &lt;- values_long %&gt;%
-  mutate(rank = as.numeric(rank)) %&gt;%
-  filter(rank &gt;= 1 &amp; rank &lt;= 10)</code></pre>
-<pre class="r"><code>ggplot(values_long,
-       aes(x = reorder(value, rank, FUN = mean),
-           y = rank)) +
-  geom_boxplot() +
-  coord_flip() +
-  scale_y_reverse(breaks = 1:10) +
-  labs(
-    x = &quot;Value&quot;,
-    y = &quot;Rank (1 = Most Important)&quot;,
-    title = &quot;Distribution of Value Rankings&quot;
-  ) +
-  theme_classic()</code></pre>
 <p><img src="p01_files/figure-html/create-plot-1.png" alt="" width="672" /></p>
 
 
